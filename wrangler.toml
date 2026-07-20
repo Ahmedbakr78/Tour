@@ -1,5 +1,5 @@
 name = "tourmate"
-pages_build_output_dir = "client/dist/tourmate-client"
+pages_build_output_dir = "client/dist/tourmate-client/browser"
 compatibility_date = "2024-09-01"
 
 # The Cloudflare frontend calls its own same-origin /api, which is proxied

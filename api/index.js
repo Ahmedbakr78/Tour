@@ -5,7 +5,7 @@ import express from 'express';
 import app from '../server/src/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dist = path.resolve(__dirname, '../../client/dist/tourmate-client');
+const dist = path.resolve(__dirname, '../../client/dist/tourmate-client/browser');
 
 // Serve the Angular build (SPA) for every non-API route.
 app.use(express.static(dist));
