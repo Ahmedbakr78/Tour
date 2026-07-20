@@ -1,7 +1,7 @@
-<!-- TourMate — professional README -->
+<!-- TourMate — professional README (Tour repository) -->
 
 <p align="center">
-  <a href="https://github.com/Ahmedbakr78/TourMate/actions"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status" /></a>
+  <a href="https://github.com/Ahmedbakr78/Tour/actions"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License" /></a>
   <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/stack-MEAN-green" alt="MEAN Stack" /></a>
   <a href="https://angular.io/"><img src="https://img.shields.io/badge/angular-17%2B-red" alt="Angular 17+" /></a>
@@ -18,11 +18,18 @@ TourMate helps travellers discover points of interest, book trusted transport an
 experiences, and track ongoing trips for safety and coordination — while giving operators a
 consolidated dashboard to supervise users and live activity.
 
+- **Repository:** https://github.com/Ahmedbakr78/Tour
+- **Default branch:** `Ahmed`
+- **Live frontend (Cloudflare Pages):** https://tourmate-3cj.pages.dev
+- **Live API backend (Vercel):** https://tourmate.vercel.app
+
 ---
 
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Feature List](#feature-list)
+- [Account App — Controls & Management](#account-app--controls--management)
 - [Team Roles](#team-roles)
 - [Feature Modules](#feature-modules)
 - [Technology Stack](#technology-stack)
@@ -30,7 +37,9 @@ consolidated dashboard to supervise users and live activity.
 - [API Reference](#api-reference)
 - [Environment Configuration](#environment-configuration)
 - [Local Development](#local-development)
+- [Deployment](#deployment)
 - [Continuous Integration](#continuous-integration)
+- [Docker](#docker)
 - [License](#license)
 
 ---
@@ -51,79 +60,81 @@ architecture (middleware → services → controllers → routes). The frontend 
 standalone-component SPA. External intelligence (POIs, routing) is proxied server-side with
 caching. Live tracking uses **polling** (no WebSockets) for simplicity and firewall resilience.
 
-## ✨ Features
+---
 
-TourMate ships a complete, production-shaped tourism platform. Highlights:
+## Feature List
 
-### 👥 Four role-based apps, one shared API
+TourMate ships a complete, production-shaped tourism platform.
+
+### Four role-based apps, one shared API
 - **Tourist** — discover & book, track trips live, review, report lost items.
 - **Driver** — manage vehicles, share live location, accept/reject trips.
 - **Guide** — publish profile & certificates, manage availability, run trips.
 - **Admin** — govern users, approve guides/drivers, monitor live activity.
 
-### 🔐 Authentication & security
+### Authentication & security
 - JWT access + refresh tokens, **bcrypt** password hashing.
 - **RBAC** enforced by `authorize(role)` on every protected route.
 - Register / Login / Verify-email / Resend-code / Forgot / Reset / Change-password / Logout.
 - Refresh-token rotation, delete-account, profile-image upload.
 
-### 🗺️ Places & geo intelligence
+### Places & geo intelligence
 - POI discovery via **Overpass API** (OpenStreetMap), server-side proxied + **TTL-cached** (≤2s target).
 - Place list / detail / search / filter / nearby / popular.
 - **Leaflet** interactive maps with POI markers & route visualization.
 - Save / bookmark places.
 
-### 🧭 Trips — the core flow
+### Trips — the core flow
 - Trip builder: add & **drag-reorder** places, auto price calculation, assign guide / driver / vehicle with capacity checks.
 - Full lifecycle: Draft → Pending → Confirmed → Ongoing → Completed → Cancelled.
 - **Shared trips**: invite link, join, vehicle-capacity enforcement, cost-splitting display, pagination.
 - Duplicate trip, share trip, start / complete / cancel with confirmation modals.
 
-### 📍 Live tracking (polling, no WebSockets)
+### Live tracking (polling, no WebSockets)
 - Drivers `POST` location; clients `GET` on a fixed interval and re-render map markers + route path + ETA.
 - Admin **active-trip monitoring** dashboard.
 - Firewall/resilience-friendly (plain HTTP polling).
 
-### 🗳️ Social & content
+### Social & content
 - **Group voting** on trips (up/down) with live results.
 - **Reviews** for trips, guides, drivers, places — create / edit / delete, average ratings.
 - **Lost & Found**: report lost item, report found, status transitions (open → found → closed → reopen), per-trip & per-user views.
 
-### 🔔 Notifications
+### Notifications
 - Server-triggered on booking updates, trip-status changes, lost-item updates.
 - Bell-centre UI: dropdown panel, unread-count badge, mark-read / mark-all / delete.
 
-### 🛠️ Admin console
+### Admin console
 - Dashboard statistics (users, trips, pending approvals).
 - User management: list, block / unblock, delete.
 - Guide & driver **approval queue** (pending → approve / reject).
 - Vehicle management (CRUD + image upload).
 
-### 🌐 Internationalization & design
+### Internationalization & design
 - **i18n EN / AR with full RTL** layout switching + language switcher.
 - Monochrome **"Zara / Zen"** design system: serif display type, hairline borders, pill buttons, muted status colours, page-rise animation, focus rings.
 - Responsive across all four apps; **PWA-ready** Angular standalone architecture with **lazy-loaded** routes.
 
-### 🧩 Backend & API
+### Backend & API
 - **115+ REST endpoints** across 14 modules (auth, user, admin, guide, driver, vehicle, trip, vote, place, review, notification, lost-item, tracking, external).
 - MongoDB + Mongoose (10 schemas) with references & compound indexes.
 - **Swagger / OpenAPI** docs for every route (`/api-docs`).
 - Multer file uploads (certificates, vehicle & profile images).
 - OSRM / OpenRouteService routing integration.
 
-### 🚀 DevOps & deployment
+### DevOps & deployment
 - **Docker** (server + client) and **docker-compose** (mongo + server + client).
 - **GitHub Actions** CI (install / typecheck / build server + client).
 - **Vercel** full-stack deploy (serverless API + Angular) and **Cloudflare Pages** frontend with `/api` proxy.
 - MongoDB **Atlas**-ready (`MONGODB_URI`).
 
-### 📚 Documentation (in this repo)
+### Documentation (in this repo)
 - 12-chapter graduation book, 13 UML diagrams, test plan + cases, 4 user manuals, presentation outline / demo-script / rehearsal checklist, Postman collection, and a deployment guide (`DEPLOY.md`).
 
 ### Folder structure
 
 ```
-TourMate/
+Tour/
 ├── client/                 # Angular 17+ standalone SPA
 │   ├── src/app/
 │   │   ├── admin/          # Admin features (dashboard, user/guide/driver/vehicle mgmt)
@@ -132,6 +143,8 @@ TourMate/
 │   │   ├── guide-app/      # Guide features
 │   │   ├── trip/           # Trip list/new/detail/calendar/shared
 │   │   ├── place/          # POI list & detail
+│   │   ├── user/           # Tourist profile & account controls
+│   │   ├── settings/       # App-wide settings (language, theme, security)
 │   │   ├── layout/         # App shell (sidebar + content)
 │   │   ├── shared/         # Shared UI (icon, modal, breadcrumb, …)
 │   │   ├── core/           # Services, guards, store
@@ -147,7 +160,12 @@ TourMate/
 │   │   └── index.js        # App entrypoint (/api-docs mounted here)
 │   ├── .env.example
 │   └── Dockerfile
-└── docker-compose.yml      # mongo + server + client
+├── api/                    # Vercel serverless entry (serves SPA + API)
+├── functions/              # Cloudflare Pages /api proxy
+├── vercel.json             # Vercel full-stack config
+├── wrangler.toml          # Cloudflare Pages config
+├── docker-compose.yml      # mongo + server + client
+└── DEPLOY.md               # Deployment guide
 ```
 
 ### Default ports
@@ -159,6 +177,41 @@ TourMate/
 | Mongo (native) | `27017` | |
 | Client (Docker) | `80` | served by nginx |
 | API docs | `4000` | Swagger UI at `/api-docs` |
+
+---
+
+## Account App — Controls & Management
+
+The Tourist **Account** area (profile + settings) is the personal control centre for every
+traveller. It exposes the following controls and management surfaces:
+
+### Profile & identity
+- View and edit personal profile (name, email, phone, bio, country).
+- Upload, replace, and remove a profile image (multipart upload, server-validated).
+- Change password with current-password confirmation and strength validation.
+- Email verification status with resend-verification-code control.
+- Delete account (soft-delete with confirmation modal and credential re-entry).
+
+### Security & sessions
+- Force logout / revoke refresh tokens (refresh-token rotation on every login).
+- View active login context and last-authenticated state.
+- Forgot / reset password flow entry point from the account screen.
+
+### Saved content & history
+- Manage saved / bookmarked places (add, remove, open on map).
+- View full trip history with status filters (Draft, Confirmed, Ongoing, Completed, Cancelled).
+- View and manage reviews the tourist has submitted (edit / delete).
+- View lost & found items reported by the tourist with status tracking.
+
+### Preferences
+- Language switcher (English / Arabic) with instant full **RTL** layout flip.
+- Notification preferences (enable / mute trip, booking, and lost-item alerts).
+- Theme / density toggles aligned with the monochrome design system.
+
+### Account-level actions
+- Role-scoped navigation: the account screen only exposes controls valid for the Tourist role.
+- In-app feedback / support entry point.
+- Sign-out from all devices.
 
 ---
 
@@ -248,7 +301,7 @@ of UML diagrams (Use Case, Sequence ×4, Class, Activity, ERD).
 
 ## API Reference
 
-Base URL: `http://localhost:4000/api`
+Base URL: `http://localhost:4000/api` (production: `https://tourmate.vercel.app/api`)
 
 ### Guides
 ```
@@ -303,7 +356,7 @@ Copy `server/.env.example` to `server/.env` and adjust:
 
 | Variable | Purpose |
 |----------|---------|
-| `MONGODB_URI` | MongoDB connection string |
+| `MONGODB_URI` | MongoDB connection string (Atlas in production) |
 | `JWT_SECRET` / `JWT_EXPIRES_IN` | Access token signing |
 | `JWT_REFRESH_SECRET` | Refresh token signing |
 | `OVERPASS_URL` / `OVERPASS_TIMEOUT_MS` | POI upstream + 2s cap |
@@ -337,11 +390,30 @@ The client points at `http://localhost:4000/api` (edit
 
 ---
 
+## Deployment
+
+### Vercel (full-stack: Angular + serverless API)
+- `vercel.json` runs `npm run vercel-build` (builds the Angular client) and outputs to
+  `client/dist/tourmate-client/browser`.
+- All `/api/*` requests are served by `api/index.js` (Express compiled to a serverless function).
+- Required environment variables on Vercel: `MONGODB_URI`, `JWT_SECRET`, `JWT_REFRESH_SECRET`,
+  `JWT_EXPIRES_IN`, `CORS_ORIGIN`.
+- Deploy: `vercel --prod`.
+
+### Cloudflare Pages (frontend + /api proxy)
+- `wrangler.toml` builds the Angular client; `functions/api/[[route]].js` proxies `/api/*` to
+  `https://tourmate.vercel.app`.
+- Live: https://tourmate-3cj.pages.dev
+
+See [`DEPLOY.md`](DEPLOY.md) for the full step-by-step guide.
+
+---
+
 ## Continuous Integration
 
 A GitHub Actions workflow installs, lints, and builds both `server` and `client` on every push
-and pull request. See the pipeline summary in [`README`](#continuous-integration) and the
-workflow referenced from `.github/workflows/ci.yml`.
+and pull request. See the pipeline summary in [Continuous Integration](#continuous-integration)
+and the workflow referenced from `.github/workflows/ci.yml`.
 
 ---
 
