@@ -47,3 +47,4 @@ client/.angular/
 .dev.vars
 .env
 .env.local
+.vercel

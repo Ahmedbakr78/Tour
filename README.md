@@ -21,7 +21,7 @@ consolidated dashboard to supervise users and live activity.
 - **Repository:** https://github.com/Ahmedbakr78/Tour
 - **Default branch:** `Ahmed`
 - **Live frontend (Cloudflare Pages):** https://tourmate-3cj.pages.dev
-
+- **Live API backend (Vercel):** https://tourmate-pearl.vercel.app
 
 ---
 
@@ -301,7 +301,7 @@ of UML diagrams (Use Case, Sequence ×4, Class, Activity, ERD).
 
 ## API Reference
 
-Base URL: `http://localhost:4000/api` (production: `https://tourmate.vercel.app/api`)
+Base URL: `http://localhost:4000/api` (production: `https://tourmate-pearl.vercel.app/api`)
 
 ### Guides
 ```
@@ -402,7 +402,7 @@ The client points at `http://localhost:4000/api` (edit
 
 ### Cloudflare Pages (frontend + /api proxy)
 - `wrangler.toml` builds the Angular client; `functions/api/[[route]].js` proxies `/api/*` to
-  `https://tourmate.vercel.app`.
+  `https://tourmate-pearl.vercel.app`.
 - Live: https://tourmate-3cj.pages.dev
 
 See [`DEPLOY.md`](DEPLOY.md) for the full step-by-step guide.

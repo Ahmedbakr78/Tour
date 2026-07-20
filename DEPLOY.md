@@ -7,17 +7,17 @@ proxies `/api` to Vercel (Cloudflare Workers cannot open a TCP connection to Mon
 ```
 Browser ──► Cloudflare Pages (tourmate-3cj.pages.dev)
                  │  /api/*  (Pages Function proxy)
-                 └─────────► Vercel  (tourmate.vercel.app)  ──► MongoDB Atlas
+                 └─────────► Vercel  (tourmate-pearl.vercel.app)  ──► MongoDB Atlas
                  └─────────► static Angular SPA
 
-Browser ──► Vercel (tourmate.vercel.app)  ──► API + static SPA (single origin)
+Browser ──► Vercel (tourmate-pearl.vercel.app)  ──► API + static SPA (single origin)
 ```
 
 ## Live URLs
 - Cloudflare frontend: https://tourmate-3cj.pages.dev  (also serves the `/api` proxy)
-- Vercel backend:    https://tourmate.vercel.app      (deployed separately — see below)
+- Vercel backend:    https://tourmate-pearl.vercel.app      (deployed separately — see below)
 
-The Cloudflare proxy defaults to `https://tourmate.vercel.app`, so once Vercel is
+The Cloudflare proxy defaults to `https://tourmate-pearl.vercel.app`, so once Vercel is
 deployed as project name **`tourmate`** the two connect automatically.
 
 ## 1. Vercel (backend + primary frontend)  —  REQUIRES your login / token
@@ -29,7 +29,7 @@ vercel login                      # opens a browser; authenticate
 vercel env add MONGODB_URI      # paste your MongoDB Atlas connection string (production)
 vercel env add JWT_SECRET production
 vercel env add JWT_REFRESH_SECRET production
-vercel env add CORS_ORIGIN production   # https://tourmate-3cj.pages.dev,https://tourmate.vercel.app
+vercel env add CORS_ORIGIN production   # https://tourmate-3cj.pages.dev,https://tourmate-pearl.vercel.app
 vercel --prod                    # deploy; when prompted name the project "tourmate"
 ```
 
@@ -53,7 +53,7 @@ wrangler pages deploy client/dist/tourmate-client/browser --project-name tourmat
 ```
 Set the production variable `API_TARGET` in the Cloudflare dashboard (Settings →
 Environment variables) only if your Vercel project is NOT named `tourmate` (the function
-defaults to `https://tourmate.vercel.app`).
+defaults to `https://tourmate-pearl.vercel.app`).
 
 ## 3. Prerequisites
 - **MongoDB Atlas** cluster + connection string in `MONGODB_URI`. The API will not
@@ -68,7 +68,7 @@ defaults to `https://tourmate.vercel.app`).
 | `JWT_REFRESH_SECRET` | Refresh-token signing key | random string |
 | `JWT_EXPIRES_IN` | Access token TTL | `7d` |
 | `JWT_REFRESH_EXPIRES_IN` | Refresh TTL | `30d` |
-| `CORS_ORIGIN` | Comma-separated allowed origins | `https://tourmate-3cj.pages.dev,https://tourmate.vercel.app` |
+| `CORS_ORIGIN` | Comma-separated allowed origins | `https://tourmate-3cj.pages.dev,https://tourmate-pearl.vercel.app` |
 | `NODE_ENV` | `production` (set by Vercel) | `production` |
 | `VERCEL` | Auto-set by Vercel; switches server to serverless mode | `1` |
 

@@ -5,7 +5,7 @@
 export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
-  const target = (env.API_TARGET || 'https://tourmate.vercel.app') + url.pathname + url.search;
+  const target = (env.API_TARGET || 'https://tourmate-pearl.vercel.app') + url.pathname + url.search;
 
   const method = request.method;
   const init = {
