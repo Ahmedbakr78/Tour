@@ -51,6 +51,75 @@ architecture (middleware → services → controllers → routes). The frontend 
 standalone-component SPA. External intelligence (POIs, routing) is proxied server-side with
 caching. Live tracking uses **polling** (no WebSockets) for simplicity and firewall resilience.
 
+## ✨ Features
+
+TourMate ships a complete, production-shaped tourism platform. Highlights:
+
+### 👥 Four role-based apps, one shared API
+- **Tourist** — discover & book, track trips live, review, report lost items.
+- **Driver** — manage vehicles, share live location, accept/reject trips.
+- **Guide** — publish profile & certificates, manage availability, run trips.
+- **Admin** — govern users, approve guides/drivers, monitor live activity.
+
+### 🔐 Authentication & security
+- JWT access + refresh tokens, **bcrypt** password hashing.
+- **RBAC** enforced by `authorize(role)` on every protected route.
+- Register / Login / Verify-email / Resend-code / Forgot / Reset / Change-password / Logout.
+- Refresh-token rotation, delete-account, profile-image upload.
+
+### 🗺️ Places & geo intelligence
+- POI discovery via **Overpass API** (OpenStreetMap), server-side proxied + **TTL-cached** (≤2s target).
+- Place list / detail / search / filter / nearby / popular.
+- **Leaflet** interactive maps with POI markers & route visualization.
+- Save / bookmark places.
+
+### 🧭 Trips — the core flow
+- Trip builder: add & **drag-reorder** places, auto price calculation, assign guide / driver / vehicle with capacity checks.
+- Full lifecycle: Draft → Pending → Confirmed → Ongoing → Completed → Cancelled.
+- **Shared trips**: invite link, join, vehicle-capacity enforcement, cost-splitting display, pagination.
+- Duplicate trip, share trip, start / complete / cancel with confirmation modals.
+
+### 📍 Live tracking (polling, no WebSockets)
+- Drivers `POST` location; clients `GET` on a fixed interval and re-render map markers + route path + ETA.
+- Admin **active-trip monitoring** dashboard.
+- Firewall/resilience-friendly (plain HTTP polling).
+
+### 🗳️ Social & content
+- **Group voting** on trips (up/down) with live results.
+- **Reviews** for trips, guides, drivers, places — create / edit / delete, average ratings.
+- **Lost & Found**: report lost item, report found, status transitions (open → found → closed → reopen), per-trip & per-user views.
+
+### 🔔 Notifications
+- Server-triggered on booking updates, trip-status changes, lost-item updates.
+- Bell-centre UI: dropdown panel, unread-count badge, mark-read / mark-all / delete.
+
+### 🛠️ Admin console
+- Dashboard statistics (users, trips, pending approvals).
+- User management: list, block / unblock, delete.
+- Guide & driver **approval queue** (pending → approve / reject).
+- Vehicle management (CRUD + image upload).
+
+### 🌐 Internationalization & design
+- **i18n EN / AR with full RTL** layout switching + language switcher.
+- Monochrome **"Zara / Zen"** design system: serif display type, hairline borders, pill buttons, muted status colours, page-rise animation, focus rings.
+- Responsive across all four apps; **PWA-ready** Angular standalone architecture with **lazy-loaded** routes.
+
+### 🧩 Backend & API
+- **115+ REST endpoints** across 14 modules (auth, user, admin, guide, driver, vehicle, trip, vote, place, review, notification, lost-item, tracking, external).
+- MongoDB + Mongoose (10 schemas) with references & compound indexes.
+- **Swagger / OpenAPI** docs for every route (`/api-docs`).
+- Multer file uploads (certificates, vehicle & profile images).
+- OSRM / OpenRouteService routing integration.
+
+### 🚀 DevOps & deployment
+- **Docker** (server + client) and **docker-compose** (mongo + server + client).
+- **GitHub Actions** CI (install / typecheck / build server + client).
+- **Vercel** full-stack deploy (serverless API + Angular) and **Cloudflare Pages** frontend with `/api` proxy.
+- MongoDB **Atlas**-ready (`MONGODB_URI`).
+
+### 📚 Documentation (in this repo)
+- 12-chapter graduation book, 13 UML diagrams, test plan + cases, 4 user manuals, presentation outline / demo-script / rehearsal checklist, Postman collection, and a deployment guide (`DEPLOY.md`).
+
 ### Folder structure
 
 ```
