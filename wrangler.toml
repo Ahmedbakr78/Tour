@@ -1,0 +1,9 @@
+name = "tourmate"
+pages_build_output_dir = "client/dist/tourmate-client"
+compatibility_date = "2024-09-01"
+
+# The Cloudflare frontend calls its own same-origin /api, which is proxied
+# (see functions/api/[[route]].js) to the Vercel backend below.
+# Change API_TARGET to YOUR deployed Vercel URL after the Vercel deploy.
+[vars]
+API_TARGET = "https://tourmate.vercel.app"

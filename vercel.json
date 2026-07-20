@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "npm run vercel-build",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index.js" }
+  ],
+  "env": {
+    "MONGOMS_DISABLE_POSTINSTALL": "1",
+    "NODE_ENV": "production"
+  }
+}

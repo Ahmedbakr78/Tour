@@ -41,6 +41,17 @@ app.use(morgan(env.nodeEnv === 'production' ? 'tiny' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+if (process.env.VERCEL) {
+  app.use(async (_req, _res, next) => {
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      next(err);
+    }
+  });
+}
+
 app.use('/uploads', express.static(uploadDir));
 
 app.get('/', (_req, res) => res.json({ status: 'ok', app: 'TourMate API', version: '1.0.0', docs: '/health' }));

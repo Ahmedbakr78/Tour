@@ -36,3 +36,14 @@ Thumbs.db
 
 # Coverage
 coverage/
+
+# Angular build cache
+.angular/
+client/.angular/
+
+# Deploy build artifacts / credentials
+.vercel/
+.wrangler/
+.dev.vars
+.env
+.env.local
