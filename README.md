@@ -21,7 +21,7 @@ consolidated dashboard to supervise users and live activity.
 - **Repository:** https://github.com/Ahmedbakr78/Tour
 - **Default branch:** `Ahmed`
 - **Live frontend (Cloudflare Pages):** https://tourmate-3cj.pages.dev
-- **Live API backend (Vercel):** https://tourmate.vercel.app
+
 
 ---
 
